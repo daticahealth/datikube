@@ -48,7 +48,7 @@ curl -L -o ./datikube https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/dow
 
 ## Windows
 
-Download [datikube_${TAG}_windows_amd64.exe](https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${TAG}/datikube_${TAG}_windows_amd64.exe), rename it to \`datikube.exe\`, and place somewhere on your \`\$PATH\`.
+Download [datikube-${TAG}-windows-amd64.exe](https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${TAG}/datikube-${TAG}-windows-amd64.exe), rename it to \`datikube.exe\`, and place somewhere on your \`\$PATH\`.
 
 EOM
 
