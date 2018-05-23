@@ -35,7 +35,7 @@ To install, [make sure \`kubectl\` is installed](https://kubernetes.io/docs/task
 Run this in your terminal:
 
 \`\`\`sh
-curl -L -o ./datikube https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${TAG}/datikube_${TAG}_darwin_amd64 && chmod +x ./datikube && sudo mv ./datikube /usr/local/bin/datikube
+curl -L -o ./datikube https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${TAG}/datikube-${TAG}-darwin-amd64 && chmod +x ./datikube && sudo mv ./datikube /usr/local/bin/datikube
 \`\`\`
 
 ## Linux
@@ -43,7 +43,7 @@ curl -L -o ./datikube https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/dow
 Run this in your terminal:
 
 \`\`\`sh
-curl -L -o ./datikube https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${TAG}/datikube_${TAG}_linux_amd64 && chmod +x ./datikube && sudo mv ./datikube /usr/local/bin/datikube
+curl -L -o ./datikube https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/${TAG}/datikube-${TAG}-linux-amd64 && chmod +x ./datikube && sudo mv ./datikube /usr/local/bin/datikube
 \`\`\`
 
 ## Windows
