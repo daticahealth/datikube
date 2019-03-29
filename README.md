@@ -4,7 +4,12 @@ CLI tool to make interfacing with [Datica](https://datica.com/)-managed [Kuberne
 
 ## Workflow
 
-1. `datikube set-context my-cluster https://my-cluster.example.com:1234/ /path/to/my/ca.pem`
+Required inputs:
+* Context name: We strongly recommend using the provided cluster name for your context. This will be similar to "yourorg-stg-01"
+* Kubernetes API Server Load Balancer URL: This is provided by Datica when we hand off your cluster.
+* Cluster Certificate Authority: This file is provided by Datica when we hand off your cluster.
+
+1. `datikube set-context yourorg-stg-01 https://yourorg-stg-01-apiserver-abc123.example.com/ /path/to/my/ca.pem`
 2. Sign in with your Datica credentials.
 3. `kubectl --context my-cluster get pods`
 
