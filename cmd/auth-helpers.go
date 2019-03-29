@@ -67,7 +67,7 @@ func promptForSignin() (*auth.User, error) {
 }
 
 func promptForMFA(sr *auth.SigninResponse) (*auth.User, error) {
-	logs.Print("Your account as two-factor authentication enabled.")
+	logs.Print("Your account has two-factor authentication enabled.")
 	logs.Print("Enter your one-time password (%s) to complete signin.", sr.MFAPreferredType)
 	otp, err := prompt("OTP", true)
 	if err != nil {
