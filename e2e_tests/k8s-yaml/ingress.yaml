@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-example-crud
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: "/$2"
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+  - hosts:
+    - {{ hostname }}
+    secretName: ingress-tls-example-crud
+  rules:
+  - host: "{{ hostname }}"
+    http:
+      paths:
+      - path: /example-crud(/|$)(.*)
+        backend:
+          serviceName: example-crud
+          servicePort: 3000

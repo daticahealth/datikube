@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test-data
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: test-data
+  namespace: default
+rules:
+- apiGroups: ['policy']
+  resources: ['podsecuritypolicies']
+  verbs:     ['use']
+  resourceNames:
+  - privileged
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  name: test-data
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: test-data
+subjects:
+- kind: ServiceAccount
+  name: test-data
+  namespace: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-example-crud
+  namespace: default
+  labels: 
+    app: example-crud
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: example-crud
+    tier: mysql
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql-example-crud
+  namespace: default
+  labels:
+    app: example-crud
+spec:
+  selector:
+    matchLabels:
+      app: example-crud
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: example-crud
+        tier: mysql
+    spec:
+      serviceAccountName: test-data
+      securityContext:
+        runAsUser: 0
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-example-crud-claim

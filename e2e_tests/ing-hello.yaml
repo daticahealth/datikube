@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: hello-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    default-ssl-certificate: "default/x509-hello"
+spec:
+  tls:
+    - secretName: x509-hello
+  rules:
+  - host: "{{ hostname }}"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hello
+          servicePort: 8080

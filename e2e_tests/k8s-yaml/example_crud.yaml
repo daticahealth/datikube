@@ -1,0 +1,47 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-crud
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: example-crud
+      tier: api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-crud
+        tier: api
+    spec:
+      containers:
+      - name: example-crud
+        image: datica/example-node-api:v1
+        securityContext:
+            runAsUser: 65534
+        imagePullPolicy: Always
+        env:
+        - name: DB_HOST
+          value: mysql-example-crud
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-crud
+  namespace: default
+  labels:
+    app: example-crud
+    tier: api
+spec:
+  selector:
+    app: example-crud
+    tier: api
+  ports:
+  - port: 3000
+    protocol: TCP
